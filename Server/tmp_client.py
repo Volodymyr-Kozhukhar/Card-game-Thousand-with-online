@@ -5,7 +5,7 @@ import time
 
 def main():
     sock = socket.socket()
-    sock.connect(('192.168.0.191', 12345))
+    sock.connect(('26.63.92.98', 12345))
     print("Connected", end='\n\n')
 
     tmp_tuple = struct.unpack('!I', sock.recv(4))
@@ -19,6 +19,13 @@ def main():
     sock.send(name_length)
     data = struct.pack(f'!{tmp}s', name_b)
     sock.send(data)
+
+    while True:
+        number = int(input("Enter 1-digit number: "))
+        data = struct.pack('!I', number)
+        sock.send(data)
+        if number == 0:
+            break
 
     time.sleep(5)
 
